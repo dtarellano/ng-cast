@@ -1,20 +1,20 @@
 angular.module('video-player')
 .service('youTube', function($http) {
-  let data = {
-    key: 'AIzaSyCE3Yh9-RTnlZ4CtoEdxr62mR26Cz_em0U',
-    q: 'dogs',
-    maxResults: 5,
-    part: 'snippet',
-    type: 'video'
-  };
-  this.getYoutube = function(data) {
+
+  this.getYoutube = function(returnData, query) {
+    let data = {
+      key: youtubekey,
+      q: query,
+      maxResults: 5,
+      part: 'snippet',
+      type: 'video'
+    };
     $http({
       method: 'GET',
       url: 'https://www.googleapis.com/youtube/v3/search',
-      data: data
+      params: data
     }).then(function(response) {
-      this.video = response.item;
-      this.vid = response.item[0];
+      returnData(response);
     });
   };
 });
